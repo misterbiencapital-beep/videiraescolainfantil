@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videira Escola Infantil | Carapicuíba/SP</title>
+    <meta name="description" content="Há 13 anos, a Videira Escola Infantil acolhe crianças em Carapicuíba com cuidado, aprendizado e amor. Berçário, Maternal e Pré-Escola.">
+    
+    <style>
+        /* PALETA DE CORES VIDEIRA */
+        :root {
+            --vid-primary: #4A154B;      /* Roxo/Vinho Profundo */
+            --vid-secondary: #38A3A5;    /* Verde-água */
+            --vid-accent: #E67E22;       /* Laranja Botões */
+            --vid-gold: #D4AF37;         /* Dourado Detalhes */
+            --vid-white: #FFFFFF;
+            --vid-cream: #FDF8F3;
+            --vid-text: #2D2A26;
+            --vid-text-light: #5C5752;
+            --font-display: Georgia, 'Times New Roman', serif;
+            --font-body: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --shadow: 0 8px 24px rgba(0,0,0,0.08);
+            --radius: 20px;
+        }
+
+        /* RESET BÁSICO */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: var(--font-body); 
+            color: var(--vid-text); 
+            background: var(--vid-cream); 
+            line-height: 1.6; 
+            overflow-x: hidden; 
+        }
+
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* HEADER FIXO */
+        .header { 
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000; 
+            background: rgba(74, 21, 75, 0.95); backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--vid-gold); transition: 0.3s;
+        }
+        .header-inner { display: flex; align-items: center; justify-content: space-between; height: 85px; }
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo img { height: 55px; border-radius: 50%; border: 2px solid var(--vid-gold); }
+        .logo-text { color: var(--vid-white); line-height: 1.1; }
+        .logo-text b { display: block; font-family: var(--font-display); font-size: 1.4rem; }
+        .logo-text small { font-size: 0.7rem; letter-spacing: 2px; color: var(--vid-gold); text-transform: uppercase; }
+
+        .nav-desktop { display: none; }
+        .nav-desktop ul { display: flex; gap: 20px; }
+        .nav-desktop a { color: var(--vid-white); font-weight: 500; font-size: 0.95rem; }
+        .nav-desktop a:hover { color: var(--vid-gold); }
+
+        /* BOTÕES */
+        .btn { 
+            display: inline-flex; align-items: center; justify-content: center; 
+            padding: 12px 24px; border-radius: 50px; font-weight: 700; 
+            transition: 0.3s; cursor: pointer; text-decoration: none; border: none;
+        }
+        .btn-primary { background: var(--vid-accent); color: white; box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3); }
+        .btn-primary:hover { transform: translateY(-3px); background: #d35400; }
+        .btn-outline { border: 2px solid var(--vid-white); color: var(--vid-white); background: transparent; }
+        .btn-outline:hover { background: var(--vid-white); color: var(--vid-primary); }
+
+        /* HERO SECTION */
+        .hero { 
+            position: relative; min-height: 90vh; display: flex; align-items: center; 
+            background: linear-gradient(rgba(74, 21, 75, 0.7), rgba(74, 21, 75, 0.7)), url('imagens/iniciohero.JPG');
+            background-size: cover; background-position: center; color: white; padding-top: 80px;
+        }
+        .hero-content { max-width: 700px; }
+        .badge { 
+            display: inline-block; background: var(--vid-gold); color: var(--vid-primary); 
+            padding: 6px 16px; border-radius: 50px; font-weight: 800; font-size: 0.8rem; margin-bottom: 20px;
+        }
+        .hero h1 { font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 20px; }
+        .hero p { font-size: 1.2rem; margin-bottom: 35px; opacity: 0.9; }
+        .hero-btns { display: flex; gap: 15px; flex-wrap: wrap; }
+
+        /* SEÇÃO TURMAS */
+        .section { padding: 80px 0; }
+        .section-header { text-align: center; max-width: 700px; margin: 0 auto 50px; }
+        .section-header h2 { font-family: var(--font-display); font-size: 2.5rem; color: var(--vid-primary); }
+        
+        .grid-turmas { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card-turma { 
+            background: white; border-radius: var(--radius); overflow: hidden; 
+            box-shadow: var(--shadow); transition: 0.3s; border-bottom: 5px solid var(--vid-gold);
+        }
+        .card-turma:hover { transform: translateY(-10px); }
+        .card-turma img { width: 100%; height: 220px; object-fit: cover; }
+        .card-body { padding: 30px; }
+        .card-body h3 { font-family: var(--font-display); color: var(--vid-primary); margin-bottom: 10px; }
+        .age-tag { color: var(--vid-secondary); font-weight: 700; font-size: 0.9rem; margin-bottom: 15px; display: block; }
+
+        /* WHATSAPP FLOAT */
+        .whatsapp-float { 
+            position: fixed; bottom: 30px; right: 30px; z-index: 999; 
+            background: #25D366; color: white; padding: 15px 25px; 
+            border-radius: 50px; display: flex; align-items: center; gap: 10px;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); font-weight: bold;
+        }
+
+        /* FOOTER */
+        .footer { background: var(--vid-primary); color: white; padding: 60px 0 30px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
+        .footer-logo img { height: 70px; border-radius: 50%; margin-bottom: 20px; }
+        .footer-col h4 { font-family: var(--font-display); color: var(--vid-gold); margin-bottom: 20px; font-size: 1.2rem; }
+        .footer-links li { list-style: none; margin-bottom: 10px; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding-top: 20px; text-align: center; font-size: 0.8rem; opacity: 0.6; }
+
+        /* MENU MOBILE */
+        .menu-toggle { display: block; font-size: 2rem; color: white; cursor: pointer; }
+        @media (min-width: 1024px) {
+            .nav-desktop { display: block; }
+            .menu-toggle { display: none; }
+        }
+
+        /* ANIMAÇÃO SIMPLES */
+        .animate { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+        .animate.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+    <!-- CABEÇALHO -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="#" class="logo">
+                    <img src="imagens/logo.JPG" alt="Videira Escola">
+                    <div class="logo-text">
+                        <b>Videira</b>
+                        <small>Escola Infantil</small>
+                    </div>
+                </a>
+                
+                <nav class="nav-desktop">
+                    <ul>
+                        <li><a href="#inicio">Home</a></li>
+                        <li><a href="#sobre">A Escola</a></li>
+                        <li><a href="#turmas">Turmas</a></li>
+                        <li><a href="#atividades">Atividades</a></li>
+                        <li><a href="#contato">Contato</a></li>
+                    </ul>
+                </nav>
+
+                <div class="header-cta">
+                    <a href="https://wa.me/5511985355703" class="btn btn-primary">Agendar Visita</a>
+                </div>
+
+                <div class="menu-toggle" id="menuToggle">☰</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+        <div class="container">
+            <div class="hero-content animate">
+                <span class="badge">13 ANOS DE HISTÓRIA EM CARAPICUÍBA</span>
+                <h1>Onde cada pequeno passo vira grande descoberta</h1>
+                <p>Educação infantil com alma de família. Aqui, seu filho não apenas aprende — ele se transforma em um ambiente seguro e acolhedor.</p>
+                <div class="hero-btns">
+                    <a href="https://wa.me/5511985355703?text=Olá, gostaria de saber mais sobre as matrículas." class="btn btn-primary">Falar no WhatsApp</a>
+                    <a href="#turmas" class="btn btn-outline">Conhecer Turmas</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section class="section" id="sobre">
+        <div class="container">
+            <div class="section-header animate">
+                <h2 style="margin-bottom: 20px;">Onde o cuidado se transforma em futuro</h2>
+                <p>A Videira Escola Infantil é uma escola de bairro com alma de família. Fundada em 2012, acolhemos crianças de 3 meses a 6 anos com uma proposta que une afeto e desenvolvimento sólido.</p>
+            </div>
+            
+            <div class="grid-turmas">
+                <div class="card-turma animate" style="border-bottom: 5px solid var(--vid-secondary);">
+                    <img src="imagens/desenvolvimentoinfantil.JPG" alt="Desenvolvimento">
+                    <div class="card-body">
+                        <h3>Nossa Missão</h3>
+                        <p>Cultivar crianças com raízes firmes em valores e asas fortes para o conhecimento.</p>
+                    </div>
+                </div>
+                <div class="card-turma animate" style="border-bottom: 5px solid var(--vid-primary);">
+                    <img src="imagens/espacodosaber.JPG" alt="Espaço do Saber">
+                    <div class="card-body">
+                        <h3>Ambiente Seguro</h3>
+                        <p>Estrutura pensada exclusivamente para a primeira infância, com segurança total e equipe cuidadosa.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TURMAS -->
+    <section class="section" id="turmas" style="background: var(--vid-white);">
+        <div class="container">
+            <div class="section-header animate">
+                <h2>Uma turma para cada fase</h2>
+                <p>Ambientes preparados para estimular o desenvolvimento motor e cognitivo.</p>
+            </div>
+
+            <div class="grid-turmas">
+                <!-- Berçário -->
+                <div class="card-turma animate">
+                    <img src="imagens/bercario.JPG" alt="Berçário">
+                    <div class="card-body">
+                        <span class="age-tag">A partir de 3 meses</span>
+                        <h3>Berçário</h3>
+                        <p>Cuidado humanizado e estímulo sensorial constante para os menores.</p>
+                        <a href="https://wa.me/5511985355703" class="btn btn-primary" style="width: 100%; margin-top: 15px;">Quero uma vaga</a>
+                    </div>
+                </div>
+
+                <!-- Maternal -->
+                <div class="card-turma animate">
+                    <img src="imagens/interacaoemgrupo.JPG" alt="Maternal">
+                    <div class="card-body">
+                        <span class="age-tag">1 a 3 anos</span>
+                        <h3>Maternal</h3>
+                        <p>Fase de descobertas sociais, linguagem e desenvolvimento da autonomia.</p>
+                        <a href="https://wa.me/5511985355703" class="btn btn-primary" style="width: 100%; margin-top: 15px;">Quero uma vaga</a>
+                    </div>
+                </div>
+
+                <!-- Pré-Escola -->
+                <div class="card-turma animate">
+                    <img src="imagens/alfabetizacaodedatica.JPG" alt="Pré-Escola">
+                    <div class="card-body">
+                        <span class="age-tag">3 a 6 anos</span>
+                        <h3>Pré-Escola</h3>
+                        <p>Alfabetização didática, jiu-jitsu, inglês e ballet integrados à rotina.</p>
+                        <a href="https://wa.me/5511985355703" class="btn btn-primary" style="width: 100%; margin-top: 15px;">Quero uma vaga</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer" id="contato">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-logo">
+                    <img src="imagens/logo.JPG" alt="Logo Videira">
+                    <p>Há 13 anos cuidando com amor.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Endereço</h4>
+                    <p>Rua Queluz, 26, 1º andar<br>Cidade Ariston Estela Azevedo<br>Carapicuíba/SP - 06390-370</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Contato</h4>
+                    <p>Fixo: (11) 4202-1935</p>
+                    <p>WhatsApp: (11) 98535-5703</p>
+                    <p>Segunda a Sexta: 07h às 18h</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Videira Escola Infantil. CNPJ: 17.067.751/0001-51. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WHATSAPP FIXO -->
+    <a href="https://wa.me/5511985355703?text=Olá, visitei o site da Videira e gostaria de informações." class="whatsapp-float" target="_blank">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Fale Conosco
+    </a>
+
+    <script>
+        // Animação ao rolar a página
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+
+        // Efeito do Header ao rolar
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.style.background = "rgba(74, 21, 75, 1)";
+                header.style.height = "75px";
+            } else {
+                header.style.background = "rgba(74, 21, 75, 0.95)";
+                header.style.height = "85px";
+            }
+        });
+    </script>
+
+</body>
+</html>
